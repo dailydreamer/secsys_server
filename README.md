@@ -9,7 +9,7 @@
 ## Manual Test Server
 
 ```bash
-godep go run index.go
+go run index.go
 ```
 
 # TODO
