@@ -34,7 +34,7 @@ curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "
 `GET /user` without token
 
 ```sh
-curl -X GET -H  http://localhost:3000/v1/user -i
+curl -X GET http://localhost:3000/v1/user -i
 ```
 
 `GET /user` with token
