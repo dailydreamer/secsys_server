@@ -2,16 +2,15 @@ package controllers
 
 import (
   "net/http"
+
+  "secsys/libs"
+	"log"
 )
 
-// UserController GET PATHC DELETE current user
-func UserController(w http.ResponseWriter, r *http.Request) {
-
-}
-
 // GetUser GET /user
-func GetUser() {
-
+func GetUser(w http.ResponseWriter, r *http.Request) {
+  userID := r.Context().Value(libs.ContextKey("userid")).(string)
+  log.Println("userID: ", userID)
 }
 
 // UpdateUser PATCH /user

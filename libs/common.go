@@ -3,7 +3,6 @@ package libs
 import (
   "net/http"
   "encoding/json"
-  "log"
 )
 
 // JSONError is error json respones struct
@@ -12,15 +11,16 @@ type JSONError struct {
 }
 
 // CORSMiddleware write some headers to handle CORS 
-func CORSMiddleware(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-  origin := r.Header.Get("Origin")
-  log.Println("Origin: ", origin)
-  //TODO verify origin whitelist here
-  w.Header().Set("Access-Control-Allow-Origin", origin)
-  w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
-  w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
-  w.Header().Set("Access-Control-Allow-Credentials", "true")
-  next(w, r)
+func CORSMiddleware(next http.Handler) http.Handler {
+  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    origin := r.Header.Get("Origin")
+    //TODO verify origin whitelist here
+    w.Header().Set("Access-Control-Allow-Origin", origin)
+    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+    w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+    w.Header().Set("Access-Control-Allow-Credentials", "true")
+    next.ServeHTTP(w, r)
+  })
 }
 
 // ResponseJSON return json http respones

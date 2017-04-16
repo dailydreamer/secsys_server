@@ -23,48 +23,50 @@ func GenerateJWT(id string) (string, error) {
   claims := UserClaims{
     id,
     jwt.StandardClaims{
-      Issuer: "pootoo",
-      ExpiresAt: time.Now().Add(time.Minute * 60 * 24 * 30).Unix(),
+      Issuer: "secsys",
+      ExpiresAt: time.Now().Add(time.Minute * 60 * 24 * 30).Unix(), // expire after 30 days
     },
   }  
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
   return rawToken.SignedString([]byte(config.JWTSecret))
 }
 
-// ValidateJWT middleware to validate jwt token and set context
-func ValidateJWT(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-  rawToken := TokenFromAuthHeader(r)
-  if rawToken == "" {
-    // no auth token
-    next(w, r)
-    return
-  }
-  token, err := jwt.ParseWithClaims(rawToken, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
-    if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-        return "", fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+// ValidateJWTMiddleware to validate jwt token and set context
+func ValidateJWTMiddleware(next http.Handler) http.Handler {
+  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    rawToken := TokenFromAuthHeader(r)
+    if rawToken == "" {
+      // no auth token
+      ResponseError(w, r, "Please login first", http.StatusUnauthorized)
+      return
     }
-    return []byte(config.JWTSecret), nil
-  })
-  if err != nil {
-		switch err.(type) {
-		case *jwt.ValidationError: // JWT validation error
-			vErr := err.(*jwt.ValidationError)
-			switch vErr.Errors {
-			case jwt.ValidationErrorExpired: //JWT expired
-        ResponseError(w, r, "Access Token is expired, get a new Token", http.StatusUnauthorized)
-				return
-			default:
+    token, err := jwt.ParseWithClaims(rawToken, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+      if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+          return "", fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+      }
+      return []byte(config.JWTSecret), nil
+    })
+    if err != nil {
+      switch err.(type) {
+      case *jwt.ValidationError: // JWT validation error
+        vErr := err.(*jwt.ValidationError)
+        switch vErr.Errors {
+        case jwt.ValidationErrorExpired: //JWT expired
+          ResponseError(w, r, "Access Token is expired, get a new Token", http.StatusUnauthorized)
+          return
+        default:
+          log.Println(err)
+        }
+      default:
         log.Println(err)
-			}
-		default:
-      log.Println(err)
-		}
-  }
-  if claims, ok := token.Claims.(*UserClaims); ok && token.Valid {
-    ctx := context.WithValue(r.Context(), ContextKey("userid"), claims.ID)
-    r = r.WithContext(ctx)
-  }
-  next(w, r)
+      }
+    }
+    if claims, ok := token.Claims.(*UserClaims); ok && token.Valid {
+      ctx := context.WithValue(r.Context(), ContextKey("userid"), claims.ID)
+      r = r.WithContext(ctx)
+    }
+    next.ServeHTTP(w, r)        
+  })
 }
 
 // TokenFromAuthHeader is a "TokenExtractor" that takes a given request and extracts
