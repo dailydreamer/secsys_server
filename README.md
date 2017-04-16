@@ -2,7 +2,7 @@
 
 [Golang](https://golang.org/) 1.7+
 
-[Glide](https://glide.sh/) For package managment.
+[Govendor](https://github.com/kardianos/govendor) For package managment.
 
 # Usage 
 
@@ -14,4 +14,4 @@ go run index.go
 
 # TODO
 
-- [] add cors and jwt middleware
+- [ ] add cors and jwt middleware

@@ -29,7 +29,7 @@ included some useful/optional subpackages: `middleware`, `render` and `docgen`. 
 * **100% compatible with net/http** - use any http or middleware pkg in the ecosystem that is also compat with `net/http`
 * **Designed for modular/composable APIs** - middlewares, inline middlewares, route groups and subrouter mounting
 * **Context control** - built on new `context` package, providing value chaining, cancelations and timeouts
-* **Robust** - tested / used in production at Pressly.com, and many others
+* **Robust** - in production at Pressly, CloudFlare, Heroku, 99Designs, and many others (see [discussion](https://github.com/pressly/chi/issues/91))
 * **Doc generation** - `docgen` auto-generates routing documentation from your source to JSON or Markdown
 * **No external dependencies** - plain ol' Go 1.7+ stdlib + net/http
 
@@ -89,10 +89,6 @@ func main() {
   r.Use(middleware.RealIP)
   r.Use(middleware.Logger)
   r.Use(middleware.Recoverer)
-
-  // When a client closes their connection midway through a request, the
-  // http.CloseNotifier will cancel the request context (ctx).
-  r.Use(middleware.CloseNotify)
 
   // Set a timeout value on the request context (ctx), that will signal
   // through ctx.Done() that the request has timed out and further
