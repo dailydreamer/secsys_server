@@ -10,19 +10,6 @@ type JSONError struct {
   Error string `json:"error"`
 }
 
-// CORSMiddleware write some headers to handle CORS 
-func CORSMiddleware(next http.Handler) http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    origin := r.Header.Get("Origin")
-    //TODO verify origin whitelist here
-    w.Header().Set("Access-Control-Allow-Origin", origin)
-    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
-    w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
-    w.Header().Set("Access-Control-Allow-Credentials", "true")
-    next.ServeHTTP(w, r)
-  })
-}
-
 // ResponseJSON return json http respones
 func ResponseJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 	w.Header().Set("Content-Type", "application/json")

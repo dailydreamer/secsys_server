@@ -7,6 +7,7 @@
 # TODO
 
 - [x] add cors and jwt middleware
+- [ ] create company or link to exist company while create user 
 - [ ] implement as api docs
 
 # Usage 

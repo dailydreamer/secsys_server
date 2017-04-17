@@ -9,7 +9,7 @@ import (
 type User struct {
   ID string `json:"id"`
   Phone string `json:"phone"`
-  Nickname *string `json:"nickname"`
+  Nickname *string `json:"nickname"`    //make it pointer so that it can be null
   Avator *string `json:"avator"`
   Created time.Time `json:"created"`
   Modified time.Time `json:"modified"`

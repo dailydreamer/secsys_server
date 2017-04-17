@@ -7,23 +7,23 @@ import (
 	"log"
 )
 
-// GetUser GET /user
-func GetUser(w http.ResponseWriter, r *http.Request) {
+// GetCurrentUser GET /user
+func GetCurrentUser(w http.ResponseWriter, r *http.Request) {
   userID := r.Context().Value(libs.ContextKey("userid")).(string)
   log.Println("userID: ", userID)
 }
 
-// UpdateUser PATCH /user
-func UpdateUser() {
+// UpdateCurrentUser PATCH /user
+func UpdateCurrentUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// DeleteUser DELETE /user
-func DeleteUser() {
+// DeleteCurrentUser DELETE /user
+func DeleteCurrentUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// GetUserByIDController GET /users/:id
-func GetUserByIDController(w http.ResponseWriter, r *http.Request) {
+// GetUser GET /users/:userID
+func GetUser(w http.ResponseWriter, r *http.Request) {
 
 }
