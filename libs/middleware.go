@@ -10,7 +10,7 @@ func CORSMiddleware(next http.Handler) http.Handler {
     origin := r.Header.Get("Origin")
     //TODO verify origin whitelist here
     w.Header().Set("Access-Control-Allow-Origin", origin)
-    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PATCH, DELETE")
     w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
     w.Header().Set("Access-Control-Allow-Credentials", "true")
     next.ServeHTTP(w, r)
@@ -21,6 +21,7 @@ func CORSMiddleware(next http.Handler) http.Handler {
 func ValidateAdminOrCurrentUserMiddleware(next http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     //TODO
+    next.ServeHTTP(w, r)
   })
 }
 
@@ -28,5 +29,6 @@ func ValidateAdminOrCurrentUserMiddleware(next http.Handler) http.Handler {
 func ValidateAdminMiddleware(next http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     //TODO
+    next.ServeHTTP(w, r)
   })
 }

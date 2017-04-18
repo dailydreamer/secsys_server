@@ -7,8 +7,8 @@
 # TODO
 
 - [x] add cors and jwt middleware
-- [ ] create company or link to exist company while create user 
-- [ ] implement as api docs
+- [x] complete api design
+- [ ] implemnet controllers
 
 # Usage 
 
@@ -20,26 +20,26 @@ Start server for test.
 go run index.go
 ```
 
-`POST /auth/signup`
+`POST /signup`
 
 ```sh
-curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "1"}' http://localhost:3000/v1/auth/signup -i
+curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "1"}' http://localhost:3000/v1/signup -i
 ```
 
-`POST /auth/login`
+`POST /login`
 
 ```sh
-curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "1"}' http://localhost:3000/v1/auth/login -i
+curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "1"}' http://localhost:3000/v1/login -i
 ```
 
-`GET /user` without token
+`GET /users/:userID` without token
 
 ```sh
-curl -X GET http://localhost:3000/v1/user -i
+curl -X GET http://localhost:3000/v1/users/6380f347-cca1-4d20-b13d-59f632a0d28b -i
 ```
 
-`GET /user` with token
+`GET /users/:userID` with token
 
 ```sh
-curl -X GET -H "Authorization:BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODBmMzQ3LWNjYTEtNGQyMC1iMTNkLTU5ZjYzMmEwZDI4YiIsImV4cCI6MTQ5NDk1MzgwNCwiaXNzIjoic2Vjc3lzIn0.EAtH8gLCRea6feM_EeKzdYD9XkJ4dk64WLRkTDQeTXU" http://localhost:3000/v1/user -i
+curl -X GET -H "Authorization:BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODBmMzQ3LWNjYTEtNGQyMC1iMTNkLTU5ZjYzMmEwZDI4YiIsImV4cCI6MTQ5NDk1MzgwNCwiaXNzIjoic2Vjc3lzIn0.EAtH8gLCRea6feM_EeKzdYD9XkJ4dk64WLRkTDQeTXU" http://localhost:3000/v1/users/6380f347-cca1-4d20-b13d-59f632a0d28b -i
 ```

@@ -9,8 +9,7 @@ import (
 
 // GetUsers GET /users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-  userID := r.Context().Value(libs.ContextKey("userid")).(string)
-  log.Println("userID: ", userID)
+
 }
 
 // CreateUser POST /users
@@ -20,7 +19,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 // GetUser GET /users/:userID
 func GetUser(w http.ResponseWriter, r *http.Request) {
-
+  userID := r.Context().Value(libs.ContextKey("userid")).(string)
+  log.Println("userID: ", userID)
+  w.Write([]byte(userID))
 }
 
 // UpdateUser PATCH /users/:userID

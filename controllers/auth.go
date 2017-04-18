@@ -13,7 +13,7 @@ type tokenResponse struct {
 	Token string `json:"token"`
 }
 
-// SignUp POST /auth/signup
+// SignUp POST /signup
 func SignUp(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -45,7 +45,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	libs.ResponseJSON(w, r, tokenResponse{token})
 }
 
-// LogIn POST /auth/login
+// LogIn POST /login
 func LogIn(w http.ResponseWriter, r *http.Request) {
 	//userid := r.Context().Value(libs.ContextKey("userid"))
 	var user models.User

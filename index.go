@@ -40,10 +40,9 @@ func main() {
 
 func router() http.Handler {
   r := chi.NewRouter()
-  r.Route("/auth", func(r chi.Router) {
-    r.Post("/signup", controllers.SignUp)       							// POST /auth/signup
-    r.Post("/login", controllers.LogIn)         							// POST /auth/login
-  })			
+
+	r.Post("/signup", controllers.SignUp)       							// POST /signup
+	r.Post("/login", controllers.LogIn)         							// POST /login
 	// need to be admin or current user for the api below			
 	r.Group(func(r chi.Router) {			
 		r.Use(libs.ValidateJWTMiddleware)
