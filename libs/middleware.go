@@ -17,22 +17,15 @@ func CORSMiddleware(next http.Handler) http.Handler {
   })
 }
 
+// ValidateAdminOrCurrentUserMiddleware validate is admin or is resource belongs to current user
+func ValidateAdminOrCurrentUserMiddleware(next http.Handler) http.Handler {
+  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    //TODO
+  })
+}
+
 // ValidateAdminMiddleware validate is admin
 func ValidateAdminMiddleware(next http.Handler) http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    //TODO
-  })
-}
-
-// ValidateCurrentCompanyMiddleware validate is resource belongs to current company
-func ValidateCurrentCompanyMiddleware(next http.Handler) http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    //TODO
-  })
-}
-
-// ValidateAdminOrCurrentCompanyMiddleware validate is admin or is resource belongs to current company
-func ValidateAdminOrCurrentCompanyMiddleware(next http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     //TODO
   })

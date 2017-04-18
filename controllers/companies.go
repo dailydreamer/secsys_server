@@ -9,14 +9,14 @@ func GetCompanies(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// GetCompany GET /companies/:companyID
-func GetCompany(w http.ResponseWriter, r *http.Request) {
-	//companyID := chi.URLParam(r, "companyID")
-}
-
 // CreateCompany POST /companies
 func CreateCompany(w http.ResponseWriter, r *http.Request) {
 
+}
+
+// GetCompany GET /companies/:companyID
+func GetCompany(w http.ResponseWriter, r *http.Request) {
+	//companyID := chi.URLParam(r, "companyID")
 }
 
 // UpdateCompany PATCH /companies/:companyID
