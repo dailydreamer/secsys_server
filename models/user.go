@@ -2,12 +2,13 @@ package models
 
 import (
 	"time"
-	"secsys/libs"
+	"secsys/db"
 )
 
 // User type represents the registered user.
 type User struct {
   ID string `json:"id"`
+  IsAdmin bool `json:"isAdmin"`
   Phone string `json:"phone"`
   Nickname *string `json:"nickname"`    //make it pointer so that it can be null
   Avator *string `json:"avator"`
@@ -17,12 +18,12 @@ type User struct {
 }
 
 // CreateUser create user and return id
-func CreateUser(phone string, hashedPassword string) (string, error) {
+func CreateUser(phone string, hashedPassword string, isAdmin bool) (string, error) {
   var id string
-  createUserSQL := `INSERT INTO users (phone, password) 
-    VALUES($1, $2) 
+  createUserSQL := `INSERT INTO users (phone, password, is_admin) 
+    VALUES($1, $2, $3) 
     RETURNING id;`
-  err := libs.Db.Get(&id, createUserSQL, phone, hashedPassword)
+  err := db.Pool.Get(&id, createUserSQL, phone, hashedPassword, isAdmin)
   return id, err
 }
 
@@ -30,7 +31,7 @@ func CreateUser(phone string, hashedPassword string) (string, error) {
 func FindUserByPhone(phone string) (User, error) {
   var user User
   findUserSQL := `SELECT * FROM users WHERE phone=$1`
-  err := libs.Db.Get(&user, findUserSQL, phone)
+  err := db.Pool.Get(&user, findUserSQL, phone)
   return user, err
 }
 

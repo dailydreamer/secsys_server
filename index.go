@@ -9,12 +9,16 @@ import (
 
 	"secsys/config"
 	"secsys/libs"
+	"secsys/db"
 	"secsys/controllers"
 )
 
 func main() {
 	config.InitConfig()
-	libs.InitDb()
+	db.InitDb()
+
+	// use only for create admin
+	// libs.CreateAdmin();
 
   r := chi.NewRouter()
   // A good base middleware stack
@@ -54,16 +58,16 @@ func router() http.Handler {
 			r.Delete("/", controllers.DeleteUser)									// DELETE /users/:userID
 
 			r.Route("/contracts", func(r chi.Router) {
-				r.Get("/", controllers.GetContracts)								// GET /users/:userID/contracts
-				r.Post("/", controllers.CreateContract)							// POST /users/:userID/contracts
+				r.Get("/", controllers.GetUserContracts)								// GET /users/:userID/contracts
+				r.Post("/", controllers.CreateUserContract)							// POST /users/:userID/contracts
 				r.Route("/:contractID", func(r chi.Router) {
-					r.Get("/", controllers.GetContract)								// GET /users/:userID/contracts/:contractID
-					r.Patch("/", controllers.UpdateContract)					// PATCH /users/:userID/contracts/:contractID
-					r.Delete("/", controllers.DeleteContract)					// DELETE /users/:userID/contracts/:contractID
+					r.Get("/", controllers.GetUserContract)								// GET /users/:userID/contracts/:contractID
+					r.Patch("/", controllers.UpdateUserContract)					// PATCH /users/:userID/contracts/:contractID
+					r.Delete("/", controllers.DeleteUserContract)					// DELETE /users/:userID/contracts/:contractID
 				})
 			})
 
-			r.Get("/scores", controllers.GetScores)								// GET /users/:userID/scores
+			r.Get("/scores", controllers.GetUserScores)								// GET /users/:userID/scores
 		})
 		// need to be admin for the api below	
 		r.Group(func(r chi.Router) {

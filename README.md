@@ -8,11 +8,19 @@
 
 - [x] add cors and jwt middleware
 - [x] complete api design
-- [ ] implemnet controllers
+- [ ] golang json null omitempty survey
+- [ ] implement middleware
+- [ ] implement controllers
 
 # Usage 
 
 ## Manual Test Server
+
+Init database.
+
+```sh
+psql postgres://bzjgtwxllnppiq:31a68d8748d99ded0a1d42f95a6c28eef56f0cf5fd892250f1905f99bde7ce95@ec2-54-235-90-107.compute-1.amazonaws.com:5432/d5imq2f3o1cs7a -f ./scripts/initdb.sql
+```
 
 Start server for test.
 

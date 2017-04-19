@@ -1,14 +1,14 @@
-package libs
+package db
 
 import (
   "log"
   "github.com/jmoiron/sqlx"
-  _ "github.com/lib/pq"
+  _ "github.com/lib/pq"   // init postgresql driver
   "secsys/config"
 )
 
-// Db database connect pool struct
-var Db *sqlx.DB
+// Pool database connect pool struct
+var Pool *sqlx.DB
 
 // InitDb build connect pool to database
 func InitDb() {
@@ -20,6 +20,6 @@ func InitDb() {
   if err != nil {
     log.Fatalln("Database connect error: " + err.Error())
   }
-  Db = db
+  Pool = db
   log.Println("Database connected")
 }

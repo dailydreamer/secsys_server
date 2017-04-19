@@ -31,12 +31,12 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		libs.ResponseError(w, r, "Error on encrypt password: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
-	user.ID, err = models.CreateUser(user.Phone, string(hashedPassword))
+	user.ID, err = models.CreateUser(user.Phone, string(hashedPassword), false)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on create user: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
-	token, err := libs.GenerateJWT(user.ID)
+	token, err := libs.GenerateJWT(user)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on sign token: " + err.Error(), http.StatusInternalServerError)
 		return
@@ -47,7 +47,6 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 // LogIn POST /login
 func LogIn(w http.ResponseWriter, r *http.Request) {
-	//userid := r.Context().Value(libs.ContextKey("userid"))
 	var user models.User
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
@@ -72,7 +71,7 @@ func LogIn(w http.ResponseWriter, r *http.Request) {
 		return		
 	}
 	// generate JWT
-	token, err := libs.GenerateJWT(dbUser.ID)
+	token, err := libs.GenerateJWT(dbUser)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on sign token: " + err.Error(), http.StatusInternalServerError)
 		return

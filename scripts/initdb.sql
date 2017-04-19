@@ -10,6 +10,7 @@ $$ language 'plpgsql';
 
 CREATE TABLE users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  is_admin boolean DEFAULT false,
   phone text,
   nickname text,
   avator text,

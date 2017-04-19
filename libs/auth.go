@@ -9,19 +9,22 @@ import (
 	"log"
 	"context"
   "secsys/config"
+  "secsys/models"
 )
 
 type UserClaims struct {
   ID string `json:"id"`
+  IsAdmin bool `json:"isAdmin"`
   jwt.StandardClaims
 }
 
 type ContextKey string
 
 // GenerateJWT sign jwt token
-func GenerateJWT(id string) (string, error) {
+func GenerateJWT(user models.User) (string, error) {
   claims := UserClaims{
-    id,
+    user.ID,
+    user.IsAdmin,
     jwt.StandardClaims{
       Issuer: "secsys",
       ExpiresAt: time.Now().Add(time.Minute * 60 * 24 * 30).Unix(), // expire after 30 days
@@ -62,7 +65,7 @@ func ValidateJWTMiddleware(next http.Handler) http.Handler {
       }
     }
     if claims, ok := token.Claims.(*UserClaims); ok && token.Valid {
-      ctx := context.WithValue(r.Context(), ContextKey("userid"), claims.ID)
+      ctx := context.WithValue(r.Context(), ContextKey("userClaims"), claims)
       r = r.WithContext(ctx)
     }
     next.ServeHTTP(w, r)        
