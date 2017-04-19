@@ -8,7 +8,7 @@ import (
 // User type represents the registered user.
 type User struct {
   ID string `json:"id"`
-  IsAdmin bool `json:"isAdmin"`
+  IsAdmin bool `json:"isAdmin" db:"is_admin"`
   Phone string `json:"phone"`
   Nickname *string `json:"nickname"`    //make it pointer so that it can be null
   Avator *string `json:"avator"`

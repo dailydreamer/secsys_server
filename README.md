@@ -43,11 +43,11 @@ curl -X POST -H "Content-Type:application/json" -d '{"phone": "1", "password": "
 `GET /users/:userID` without token
 
 ```sh
-curl -X GET http://localhost:3000/v1/users/6380f347-cca1-4d20-b13d-59f632a0d28b -i
+curl -X GET http://localhost:3000/v1/users/9cf0eb50-49d9-43b7-858f-9d97bd082230 -i
 ```
 
 `GET /users/:userID` with token
 
 ```sh
-curl -X GET -H "Authorization:BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODBmMzQ3LWNjYTEtNGQyMC1iMTNkLTU5ZjYzMmEwZDI4YiIsImV4cCI6MTQ5NDk1MzgwNCwiaXNzIjoic2Vjc3lzIn0.EAtH8gLCRea6feM_EeKzdYD9XkJ4dk64WLRkTDQeTXU" http://localhost:3000/v1/users/6380f347-cca1-4d20-b13d-59f632a0d28b -i
+curl -X GET -H "Authorization:BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjljZjBlYjUwLTQ5ZDktNDNiNy04NThmLTlkOTdiZDA4MjIzMCIsImlzQWRtaW4iOnRydWUsImV4cCI6MTQ5NTIxMjAyNywiaXNzIjoic2Vjc3lzIn0.4usS8PZUvA7AZNIX0ErpzLAds29rLPtWevkNTWKvDUw" http://localhost:3000/v1/users/9cf0eb50-49d9-43b7-858f-9d97bd082230 -i
 ```

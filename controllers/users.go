@@ -21,6 +21,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 func GetUser(w http.ResponseWriter, r *http.Request) {
   userClaims := r.Context().Value(libs.ContextKey("userClaims")).(*libs.UserClaims)
   log.Println("userID: ", userClaims.ID)
+  log.Println("isAdmin: ", userClaims.IsAdmin)
   w.Write([]byte(userClaims.ID))
 }
 
