@@ -8,8 +8,8 @@
 
 - [x] add cors and jwt middleware
 - [x] complete api design
-- [ ] golang json null omitempty survey
-- [ ] implement middleware
+- [x] golang json null omitempty survey
+- [x] implement middleware
 - [ ] implement controllers
 
 # Usage 
