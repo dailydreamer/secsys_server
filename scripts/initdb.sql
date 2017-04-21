@@ -77,6 +77,7 @@ CREATE TABLE users (
   com_license: text
 );
 CREATE UNIQUE INDEX users_phone_idx ON users (phone);
+CREATE UNIQUE INDEX users_com_name_idx ON users (com_name);
 
 CREATE TRIGGER update_users_modified
 BEFORE UPDATE ON users
@@ -94,10 +95,12 @@ CREATE TABLE logs (
 
 CREATE TABLE messages (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id uuid,
   created timestamp with time zone DEFAULT transaction_timestamp(),
   name text,
   message text
 );
+ALTER TABLE messages add CONSTRAINT fk_messages_user_id foreign key(user_id) references users(id);
 
 
 CREATE TABLE contracts (
@@ -114,8 +117,14 @@ CREATE TABLE contracts (
   end_time: timestamp with time zone,
   unit_price: decimal,
   total_price: decimal,
-  income: text
+  income: text,
+  created timestamp with time zone DEFAULT transaction_timestamp(),
+  modified timestamp with time zone DEFAULT transaction_timestamp(),
 );
+ALTER TABLE contracts add CONSTRAINT fk_contracts_user_id foreign key(user_id) references users(id);
+CREATE TRIGGER update_contracts_modified
+BEFORE UPDATE ON contracts
+FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
 
 CREATE TABLE scores (
@@ -128,5 +137,11 @@ CREATE TABLE scores (
   score_type: text,
   satisfied: text,
   score: decimal,
-  reason: text
+  reason: text,
+  created timestamp with time zone DEFAULT transaction_timestamp(),
+  modified timestamp with time zone DEFAULT transaction_timestamp(),
 );
+ALTER TABLE scores add CONSTRAINT fk_scores_user_id foreign key(user_id) references users(id);
+CREATE TRIGGER update_scores_modified
+BEFORE UPDATE ON scores
+FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
