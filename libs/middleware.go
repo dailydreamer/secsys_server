@@ -3,7 +3,6 @@ package libs
 import (
   "net/http"
 	"github.com/pressly/chi"
-	"log"
 )
 
 // CORSMiddleware write some headers to handle CORS 
