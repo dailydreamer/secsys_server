@@ -54,7 +54,7 @@ func router() http.Handler {
 
 		r.Route("/users/:userID", func(r chi.Router) {
 			r.Get("/", controllers.GetUser)												// GET /users/:userID
-			r.Put("/", controllers.UpdateUser)									// PUT /users/:userID
+			r.Put("/", controllers.UpdateUser)										// PUT /users/:userID
 			r.Delete("/", controllers.DeleteUser)									// DELETE /users/:userID
 
 			r.Route("/contracts", func(r chi.Router) {
@@ -62,7 +62,7 @@ func router() http.Handler {
 				r.Post("/", controllers.CreateUserContract)							// POST /users/:userID/contracts
 				r.Route("/:contractID", func(r chi.Router) {
 					r.Get("/", controllers.GetUserContract)								// GET /users/:userID/contracts/:contractID
-					r.Put("/", controllers.UpdateUserContract)					// PUT /users/:userID/contracts/:contractID
+					r.Put("/", controllers.UpdateUserContract)						// PUT /users/:userID/contracts/:contractID
 					r.Delete("/", controllers.DeleteUserContract)					// DELETE /users/:userID/contracts/:contractID
 				})
 			})
@@ -81,7 +81,7 @@ func router() http.Handler {
 				r.Post("/", controllers.CreateContract)							// POST /contracts
 				r.Route("/:contractID", func(r chi.Router) {
 					r.Get("/", controllers.GetContract)								// GET /contracts/:contractID
-					r.Put("/", controllers.UpdateContract)					// PUT /contracts/:contractID
+					r.Put("/", controllers.UpdateContract)						// PUT /contracts/:contractID
 					r.Delete("/", controllers.DeleteContract)					// DELETE /contracts/:contractID
 				})
 			})
@@ -91,7 +91,7 @@ func router() http.Handler {
 				r.Post("/", controllers.CreateScore)								// POST /scores
 				r.Route("/:scoreID", func(r chi.Router) {
 					r.Get("/", controllers.GetScore)									// GET /scores/:scoreID
-					r.Put("/", controllers.UpdateScore)							// PUT /scores/:scoreID
+					r.Put("/", controllers.UpdateScore)								// PUT /scores/:scoreID
 					r.Delete("/", controllers.DeleteScore)						// DELETE /scores/:scoreID
 				})
 			})

@@ -7,6 +7,7 @@ import (
 
 // CompanyBasic type represents basic company info
 type CompanyBasic struct {
+  ID string `json:"id"`
   ComName string `json:"comName" db:"com_name"`       
   ComField string `json:"comField" db:"com_field"`        
   ComMan string `json:"comMan" db:"com_man"`         
@@ -21,7 +22,6 @@ type CompanyBasic struct {
 // User type represents the registered user.
 type User struct {
   // user acount info
-  ID string `json:"id"`
   IsAdmin bool `json:"isAdmin" db:"is_admin"`
   Phone string `json:"phone"`
   Email *string `json:"email"`
@@ -32,7 +32,7 @@ type User struct {
   Password string `json:"password,omitempty"`
   // company basic info
   CompanyBasic
-  // TODO add this field
+  // TODO add these field
   /*
   com_level text,
   appli_date text,
@@ -108,6 +108,11 @@ func GetUserByID(userID string) (User, error) {
   // TODO
 }
 
+// GetUserByComName get user by comName
+func GetUserByComName(comName string) (User, error) {
+  // TODO
+}
+
 // GetUsers return companybasic info list
 func GetUsers() ([]CompanyBasic, error) {
   // TODO
@@ -115,11 +120,21 @@ func GetUsers() ([]CompanyBasic, error) {
 
 // UpdateUser update user with whole user entity
 func UpdateUser(user User) (error) {
-
+  // TODO
 }
 
 // DeleteUserByID delete user by id
 func DeleteUserByID(userID string) (error) {
+  // TODO
+}
 
+// GetUserContracts return Contract list of specific user
+func GetUserContracts(userID string) ([]Contract, error) {
+  // TODO
+}
+
+// GetUserScores return Score list of specific user
+func GetUserScores(userID string) ([]Score, error) {
+  // TODO
 }
 
