@@ -11,6 +11,7 @@ import (
 
 type tokenResponse struct {
 	Token string `json:"token"`
+	ID string `json:"id"`
 	IsAdmin bool `json:"isAdmin"`
 	ComName string `json:"comName"`
 }
@@ -34,7 +35,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		libs.ResponseError(w, r, "Error on encrypt password: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
-	user.ID, err = models.CreateUser(user.Phone, string(hashedPassword), false)
+	user.ID, err = models.CreateUser(user, string(hashedPassword), false)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on create user: " + err.Error(), http.StatusInternalServerError)
 		return
@@ -45,7 +46,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	libs.ResponseJSON(w, r, tokenResponse{token, false, user.ComName})
+	libs.ResponseJSON(w, r, tokenResponse{token, user.ID, false, user.ComName})
 }
 
 // LogIn POST /login
@@ -62,7 +63,7 @@ func LogIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//get user from db
-	dbUser, err := models.FindUserByPhone(user.Phone)
+	dbUser, err := models.GetUserByPhone(user.Phone)
 	if err != nil {
 		libs.ResponseError(w, r, "User not exist: " + err.Error(), http.StatusUnauthorized)
 		return
@@ -80,5 +81,5 @@ func LogIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	libs.ResponseJSON(w, r, tokenResponse{token, dbUser.IsAdmin, dbUser.ComName})
+	libs.ResponseJSON(w, r, tokenResponse{token, dbUser.ID, dbUser.IsAdmin, dbUser.ComName})
 }

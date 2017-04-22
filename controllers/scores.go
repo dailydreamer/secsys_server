@@ -20,7 +20,7 @@ func GetScore(w http.ResponseWriter, r *http.Request) {
 }
 
 
-// UpdateScore PATCH /scores/:scoreID
+// UpdateScore PUT /scores/:scoreID
 func UpdateScore(w http.ResponseWriter, r *http.Request) {
 
 }

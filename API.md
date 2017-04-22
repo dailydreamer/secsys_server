@@ -32,7 +32,7 @@ Request Body和Response Body均为JSON格式。
 | 404 NOT FOUND | 该资源不存在 |
 | 500 INTERNAL SERVER ERROR | 服务器内部错误 |
 
-当返回4**系列错误时会同时返回错误信息。
+当返回错误时会同时返回错误信息。
 
 例子
 
@@ -105,7 +105,7 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 
 - `GET`用来**获取**数据
 - `POST`用来**新增**数据
-- `PATCH`用来**修改**数据
+- `PUT`用来**修改**数据
 - `DELETE`用来**删除**数据
 
 ### 游客可用API
@@ -116,12 +116,12 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 ### 登录用户可用的API
 
 - `GET    /users/{userID}`
-- `PATCH  /users/{userID}`
+- `PUT  /users/{userID}`
 - `DELETE /users/{userID}`
 - `GET    /users/{userID}/contracts`
 - `POST   /users/{userID}/contracts`
 - `GET    /users/{userID}/contracts/{contractID}`
-- `PATCH  /users/{userID}/contracts/{contractID}`
+- `PUT  /users/{userID}/contracts/{contractID}`
 - `DELETE /users/{userID}/contracts/{contractID}`
 - `GET    /users/{userID}/scores`
 
@@ -132,12 +132,12 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - `GET    /contracts`
 - `POST   /contracts`
 - `GET    /contracts/{contractID}`
-- `PATCH  /contracts/{contractID}`
+- `PUT  /contracts/{contractID}`
 - `DELETE /contracts/{contractID}`
 - `GET    /scores`
 - `POST   /scores`
 - `GET    /scores/{scoreID}`
-- `PATCH  /scores/{scoreID}`
+- `PUT  /scores/{scoreID}`
 - `DELETE /scores/{scoreID}`
 - `GET    /logs`
 - `GET    /messages`
@@ -172,6 +172,7 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 ```javascript
 {
     token: String,
+    id: String,
     isAdmin: Boolean,
     comName: '北京保安协会评定办' | '北京安祥致远保安服务有限公司'
 }
@@ -187,6 +188,7 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - Response
 ```javascript
 [{
+    id: String,              // 用户ID
     comName: String,         // 企业名称
     comField: String,        // 企业所在领域
     comMan: String,          // 法人/总经理
@@ -208,11 +210,12 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 ```javascript
 {
     // 账户信息
-    nickName: String,       // 使用人
-    phone: String,          // 手机号
-    email: String,          // 邮箱
-    avatar: String          // 头像
-    // 企业基本信息
+    nickName: String,        // 使用人
+    phone: String,           // 手机号
+    email: String,           // 邮箱
+    avatar: String           // 头像
+    // 企业基本信息 
+    id: String,              // 用户ID
     comName: String,         // 企业名称
     comField: String,        // 企业所在领域
     comMan: String,          // 法人/总经理
@@ -221,6 +224,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
     comRegcap: String,       // 工商注册资本金
     comCapreport: String,    // 验资报告资本金
     comBatch: String,        // 批次
+    // 上传的文件
+    comLicense: String       // 营业执照扫面件
     // 企业等级信息
     comLevel: String,        // 企业等级
     appliDate: String,       // 申请日期
@@ -276,8 +281,6 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
     comCrime: String,        // 重大刑事案件
     comAcc: String,          // 重大现任事故
     comMwgs: String,         // 保安员工资高于最低工资标准10%
-    // 上传的文件
-    comLicense: String       // 营业执照扫面件
 }
 ```
 
@@ -289,6 +292,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - Response
 ```javascript
 [{
+    id: String,
+    userID: String,
     comName: String,        // 公司名称
     contractNo: String,     // 合同编号
     projectName: String,    // 项目名称
@@ -312,6 +317,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - Response
 ```javascript
 [{
+    id: String,
+    userID: String,
     comName: String,        // 公司名称
     year: String,           // 打分年份
     standard: String,       // 打分标准：全国标准/北京标准
@@ -330,6 +337,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - Response
 ```javascript
 [{
+    id: String,
+    userID: String,
     created: String,  // 登录日期时间
     comName: String,  // 操作公司
     ip: String,       // 登录ip
@@ -345,6 +354,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 - Response
 ```javascript
 [{
+    id: String,
+    userID: String,
     created: String,  // 操作时间
     comName: String,  // 操作公司
     message: String   // 操作内容
@@ -365,11 +376,12 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 ```javascript
 {
     // 账户信息
-    nickName: String,       // 使用人
-    phone: String,          // 手机号
-    email: String,          // 邮箱
-    avatar: String          // 头像
+    nickName: String,        // 使用人
+    phone: String,           // 手机号
+    email: String,           // 邮箱
+    avatar: String           // 头像
     // 企业基本信息
+    id: String,              // 用户ID
     comName: String,         // 企业名称
     comField: String,        // 企业所在领域
     comMan: String,          // 法人/总经理
@@ -378,6 +390,8 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
     comRegcap: String,       // 工商注册资本金
     comCapreport: String,    // 验资报告资本金
     comBatch: String,        // 批次
+    // 上传的文件
+    comLicense: String       // 营业执照扫面件
     // 企业等级信息
     comLevel: String,        // 企业等级
     appliDate: String,       // 申请日期
@@ -433,24 +447,20 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
     comCrime: String,        // 重大刑事案件
     comAcc: String,          // 重大现任事故
     comMwgs: String,         // 保安员工资高于最低工资标准10%
-    // 上传的文件
-    comLicense: String       // 营业执照扫面件
 }
 ```
 
 - Response
 ```javascript
-{
-    error: String
-}
+    success: true
 ```
 
-## `PATCH`类型API
+## `PUT`类型API
 
 用来**修改**数据，参数与对应的`GET`类型API相同，这里只列出URL列表：
-- `PATCH /users/{userID}`
-- `PATCH /contracts/{contractID}` or `PATCH /users/{userID}/contracts/{contractID}`
-- `PATCH /scores/{scoreID}`
+- `PUT /users/{userID}`
+- `PUT /contracts/{contractID}` or `PUT /users/{userID}/contracts/{contractID}`
+- `PUT /scores/{scoreID}`
 
 ## `DELETE`类型API
 

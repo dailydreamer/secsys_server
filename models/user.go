@@ -5,8 +5,22 @@ import (
 	"secsys/db"
 )
 
+// CompanyBasic type represents basic company info
+type CompanyBasic struct {
+  ComName string `json:"comName" db:"com_name"`       
+  ComField string `json:"comField" db:"com_field"`        
+  ComMan string `json:"comMan" db:"com_man"`         
+  ComPhone string `json:"comPhone" db:"com_phone"`        
+  ComRegnum string `json:"comRegnum" db:"com_regnum"`      
+  ComRegcap string `json:"comRegcap" db:"com_regcap"`       
+  ComCapreport string `json:"comCapreport" db:"com_capreport"`    
+  ComBatch string `json:"comBatch" db:"com_batch"`        
+  ComLicense string `json:"comLicense" db:"com_license"`    
+}
+
 // User type represents the registered user.
 type User struct {
+  // user acount info
   ID string `json:"id"`
   IsAdmin bool `json:"isAdmin" db:"is_admin"`
   Phone string `json:"phone"`
@@ -16,16 +30,10 @@ type User struct {
   Created time.Time `json:"created"`
   Modified time.Time `json:"modified"`
   Password string `json:"password,omitempty"`
-  ComName *string `json:"comName" db:"com_name"`
+  // company basic info
+  CompanyBasic
   // TODO add this field
   /*
-  com_field text,
-  com_man text,
-  com_phone text,
-  com_regnum text,
-  com_regcap decimal,
-  com_capreport decimal,
-  com_batch text,
   com_level text,
   appli_date text,
   appli_level text,
@@ -73,25 +81,45 @@ type User struct {
   com_crime text,
   com_acc text,
   com_mwgs text,
-  com_license text
   */
 }
 
 // CreateUser create user and return id
-func CreateUser(phone string, hashedPassword string, isAdmin bool) (string, error) {
+func CreateUser(user User, hashedPassword string, isAdmin bool) (string, error) {
+  // TODO more field need to be insert
   var id string
   createUserSQL := `INSERT INTO users (phone, password, is_admin) 
     VALUES($1, $2, $3) 
     RETURNING id;`
-  err := db.Pool.Get(&id, createUserSQL, phone, hashedPassword, isAdmin)
+  err := db.Pool.Get(&id, createUserSQL, user.Phone, hashedPassword, isAdmin)
   return id, err
 }
 
-// FindUserByPhone find user by phone
-func FindUserByPhone(phone string) (User, error) {
+// GetUserByPhone get user by phone
+func GetUserByPhone(phone string) (User, error) {
   var user User
-  findUserSQL := `SELECT * FROM users WHERE phone=$1`
-  err := db.Pool.Get(&user, findUserSQL, phone)
+  getUserSQL := `SELECT * FROM users WHERE phone=$1`
+  err := db.Pool.Get(&user, getUserSQL, phone)
   return user, err
+}
+
+// GetUserByID get user by id
+func GetUserByID(userID string) (User, error) {
+  // TODO
+}
+
+// GetUsers return companybasic info list
+func GetUsers() ([]CompanyBasic, error) {
+  // TODO
+}
+
+// UpdateUser update user with whole user entity
+func UpdateUser(user User) (error) {
+
+}
+
+// DeleteUserByID delete user by id
+func DeleteUserByID(userID string) (error) {
+
 }
 

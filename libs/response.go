@@ -10,6 +10,11 @@ type JSONError struct {
   Error string `json:"error"`
 }
 
+// JSONSuccess is success json respones struct
+type JSONSuccess struct {
+  Success bool `json:"success"`
+}
+
 // ResponseJSON return json http respones
 func ResponseJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 	w.Header().Set("Content-Type", "application/json")
@@ -21,4 +26,10 @@ func ResponseError(w http.ResponseWriter, r *http.Request, error string, code in
 	w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(code)
 	json.NewEncoder(w).Encode(JSONError{error})
+}
+
+// ResponseSuccess return json success respones
+func ResponseSuccess(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(JSONSuccess{true})
 }

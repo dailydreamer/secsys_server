@@ -19,7 +19,7 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 	//companyID := chi.URLParam(r, "companyID")
 }
 
-// UpdateCompany PATCH /companies/:companyID
+// UpdateCompany PUT /companies/:companyID
 func UpdateCompany(w http.ResponseWriter, r *http.Request) {
 
 }

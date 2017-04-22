@@ -11,7 +11,7 @@ func CORSMiddleware(next http.Handler) http.Handler {
     origin := r.Header.Get("Origin")
     //TODO verify origin whitelist here
     w.Header().Set("Access-Control-Allow-Origin", origin)
-    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PATCH, DELETE")
+    w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
     w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
     w.Header().Set("Access-Control-Allow-Credentials", "true")
     next.ServeHTTP(w, r)

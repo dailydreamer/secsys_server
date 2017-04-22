@@ -20,7 +20,7 @@ func GetContract(w http.ResponseWriter, r *http.Request) {
 }
 
 
-// UpdateContract PATCH /contracts/:contractID
+// UpdateContract PUT /contracts/:contractID
 func UpdateContract(w http.ResponseWriter, r *http.Request) {
 
 }
