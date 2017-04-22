@@ -12,10 +12,9 @@ $$ language 'plpgsql';
 CREATE TABLE users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   is_admin boolean DEFAULT false,
+  nick_name text,
   phone text,
   email text,
-  nickname text,
-  people text,
   avator text,
   created timestamp with time zone DEFAULT transaction_timestamp(),
   modified timestamp with time zone DEFAULT transaction_timestamp(),
@@ -87,18 +86,21 @@ FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
 CREATE TABLE logs (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  login_time timestamp with time zone DEFAULT transaction_timestamp(),
+  user_id uuid,
+  created timestamp with time zone DEFAULT transaction_timestamp(),
+  com_name text,
   ip text,
   address text,
   status text
 );
+ALTER TABLE logs add CONSTRAINT fk_logs_user_id foreign key(user_id) references users(id);
 
 
 CREATE TABLE messages (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id uuid,
   created timestamp with time zone DEFAULT transaction_timestamp(),
-  name text,
+  com_name text,
   message text
 );
 ALTER TABLE messages add CONSTRAINT fk_messages_user_id foreign key(user_id) references users(id);

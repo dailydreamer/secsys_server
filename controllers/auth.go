@@ -11,7 +11,10 @@ import (
 
 type tokenResponse struct {
 	Token string `json:"token"`
+	IsAdmin bool `json:"isAdmin"`
+	ComName string `json:"comName"`
 }
+
 
 // SignUp POST /signup
 func SignUp(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +45,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	libs.ResponseJSON(w, r, tokenResponse{token})
+	libs.ResponseJSON(w, r, tokenResponse{token, false, user.ComName})
 }
 
 // LogIn POST /login
@@ -77,5 +80,5 @@ func LogIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	libs.ResponseJSON(w, r, tokenResponse{token})
+	libs.ResponseJSON(w, r, tokenResponse{token, dbUser.IsAdmin, dbUser.ComName})
 }
