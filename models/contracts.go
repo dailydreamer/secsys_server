@@ -80,18 +80,18 @@ func GetContracts() ([]Contract, error) {
 // UpdateContract update contract with whole contract entity
 func UpdateContract(contract Contract) (error) {
   updateContractSQL := `UPDATE contracts SET
-    user_id=$1
-    com_name=$2
-    contract_no=$3
-    project_name=$4
-    com_field=$5
-    customer_name=$6
-    customer_type=$7
-    people_num=$8
-    start_time=$9
-    end_time=$10
-    unit_price=$11
-    total_price=$12
+    user_id=$1,
+    com_name=$2,
+    contract_no=$3,
+    project_name=$4,
+    com_field=$5,
+    customer_name=$6,
+    customer_type=$7,
+    people_num=$8,
+    start_time=$9,
+    end_time=$10,
+    unit_price=$11,
+    total_price=$12,
     income=$13
   WHERE id=$14`
   _, err := db.Pool.Exec(updateContractSQL,

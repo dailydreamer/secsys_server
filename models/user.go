@@ -8,15 +8,15 @@ import (
 // CompanyBasic type represents basic company info
 type CompanyBasic struct {
   ID string `json:"id"`
-  ComName string `json:"comName" db:"com_name"`       
-  ComField string `json:"comField" db:"com_field"`        
-  ComMan string `json:"comMan" db:"com_man"`         
-  ComPhone string `json:"comPhone" db:"com_phone"`        
-  ComRegnum string `json:"comRegnum" db:"com_regnum"`      
-  ComRegcap string `json:"comRegcap" db:"com_regcap"`       
-  ComCapreport string `json:"comCapreport" db:"com_capreport"`    
-  ComBatch string `json:"comBatch" db:"com_batch"`        
-  ComLicense string `json:"comLicense" db:"com_license"`    
+  ComName string `json:"comName" db:"com_name"`
+  ComField string `json:"comField" db:"com_field"`
+  ComMan string `json:"comMan" db:"com_man"`
+  ComPhone string `json:"comPhone" db:"com_phone"`
+  ComRegnum string `json:"comRegnum" db:"com_regnum"`
+  ComRegcap string `json:"comRegcap" db:"com_regcap"`
+  ComCapreport string `json:"comCapreport" db:"com_capreport"`
+  ComBatch string `json:"comBatch" db:"com_batch"`
+  ComLicense string `json:"comLicense" db:"com_license"`
 }
 
 // User type represents the registered user.
@@ -32,64 +32,62 @@ type User struct {
   Password string `json:"password,omitempty"`
   // company basic info
   CompanyBasic
-  // TODO add these field
-  /*
-  com_level text,
-  appli_date text,
-  appli_level text,
-  appli_result text,
-  certf_date text,
-  certf_num text,
-  verif_date text,
-  verif_result text,
-  com_turnover decimal,
-  com_area decimal,
-  police_num integer,
-  police_duty integer,
-  police_cancel integer,
-  police_dutycancel decimal,
-  list_duty integer,
-  list_dutycancel decimal,
-  emp_num integer,
-  emp_contract integer,
-  emp_lccr decimal,
-  cont_num integer,
-  cont_vac decimal,
-  cont_samptnum integer,
-  cont_sampfnum integer,
-  cont_sampvac decimal,
-  emp_sep integer,
-  emp_seprate decimal,
-  list_certrate decimal,
-  list_sampcertrate decimal,
-  emp_ssemanum integer,
-  emp_ssemarate decimal,
-  emp_semanum integer,
-  emp_semarate decimal,
-  emp_jsenum integer,
-  emp_jserate decimal,
-  train_period integer,
-  com_salary decimal,
-  train_funds decimal,
-  train_fundsrate decimal,
-  com_comins integer,
-  com_sosec integer,
-  com_sosecrate decimal,
-  com_party text,
-  com_youth text,
-  com_union text,
-  com_crime text,
-  com_acc text,
-  com_mwgs text,
-  */
+  // company detailed info
+  ComLevel *string `json:"comLevel" db:"com_level"`
+  AppliDate *string `json:"appliDate" db:"appli_date"`
+  AppliLevel *string `json:"appliLevel" db:"appli_level"`
+  AppliResult *string `json:"appliResult" db:"appli_result"`
+  CertfDate *string `json:"certfDate" db:"certf_date"`
+  CertfNum *string `json:"certfNum" db:"certf_num"`
+  VerifDate *string `json:"verifDate" db:"verif_date"`
+  VerifResult *string `json:"verifResult" db:"verif_result"`
+  ComTurnover *float64 `json:"comTurnover" db:"com_turnover"`
+  ComArea *float64 `json:"comArea" db:"com_area"`
+  PoliceNum *int `json:"policeNum" db:"police_num"`
+  PoliceDuty *int `json:"policeDuty" db:"police_duty"`
+  PoliceCancel *int `json:"policeCancel" db:"police_cancel"`
+  PoliceDutycancel *float64 `json:"policeDutycancel" db:"police_dutycancel"`
+  ListDuty *int `json:"listDuty" db:"list_duty"`
+  ListDutycancel *float64 `json:"listDutycancel" db:"list_dutycancel"`
+  EmpNum *int `json:"empNum" db:"emp_num"`
+  EmpContract *int `json:"empContract" db:"emp_contract"`
+  EmpLccr *float64 `json:"empLccr" db:"emp_lccr"`
+  ContNum *int `json:"contNum" db:"cont_num"`
+  ContVac *float64 `json:"contVac" db:"cont_vac"`
+  ContSamptnum *int `json:"contSamptnum" db:"cont_samptnum"`
+  ContSampfnum *int `json:"contSampfnum" db:"cont_sampfnum"`
+  ContSampvac *float64 `json:"contSampvac" db:"cont_sampvac"`
+  EmpSep *int `json:"empSep" db:"emp_sep"`
+  EmpSeprate *float64 `json:"empSeprate" db:"emp_seprate"`
+  ListCertrate *float64 `json:"listCertrate" db:"list_certrate"`
+  ListSampcertrate *float64 `json:"listSampcertrate" db:"list_sampcertrate"`
+  EmpSsemanum *int `json:"empSsemanum" db:"emp_ssemanum"`
+  EmpSsemarate *float64 `json:"empSsemarate" db:"emp_ssemarate"`
+  EmpSemanum *int `json:"empSemanum" db:"emp_semanum"`
+  EmpSemarate *float64 `json:"empSemarate" db:"emp_semarate"`
+  EmpJsenum *int `json:"empJsenum" db:"emp_jsenum"`
+  EmpJserate *float64 `json:"empJserate" db:"emp_jserate"`
+  TrainPeriod *int `json:"trainPeriod" db:"train_period"`
+  ComSalary *float64 `json:"comSalary" db:"com_salary"`
+  TrainFunds *float64 `json:"trainFunds" db:"train_funds"`
+  TrainFundsrate *float64 `json:"trainFundsrate" db:"train_fundsrate"`
+  ComComins *int `json:"comComins" db:"com_comins"`
+  ComSosec *int `json:"comSosec" db:"com_sosec"`
+  ComSosecrate *float64 `json:"comSosecrate" db:"com_sosecrate"`
+  ComParty *string `json:"comParty" db:"com_party"`
+  ComYouth *string `json:"comYouth" db:"com_youth"`
+  ComUnion *string `json:"comUnion" db:"com_union"`
+  ComCrime *string `json:"comCrime" db:"com_crime"`
+  ComAcc *string `json:"comAcc" db:"com_acc"`
+  ComMwgs *string `json:"comMwgs" db:"com_mwgs"`
 }
 
 // CreateUser create user and return id
 func CreateUser(user User, hashedPassword string, isAdmin bool) (string, error) {
   // TODO more field need to be insert
   var id string
-  createUserSQL := `INSERT INTO users (phone, password, is_admin) 
-    VALUES($1, $2, $3) 
+  createUserSQL := `INSERT INTO users (phone, password, is_admin)
+    VALUES($1, $2, $3)
     RETURNING id;`
   err := db.Pool.Get(&id, createUserSQL, user.Phone, hashedPassword, isAdmin)
   return id, err
@@ -105,36 +103,180 @@ func GetUserByPhone(phone string) (User, error) {
 
 // GetUserByID get user by id
 func GetUserByID(userID string) (User, error) {
-  // TODO
+  var user User
+  getUserSQL := `SELECT * FROM users WHERE id=$1`
+  err := db.Pool.Get(&user, getUserSQL, userID)
+  return user, err
 }
 
 // GetUserByComName get user by comName
 func GetUserByComName(comName string) (User, error) {
-  // TODO
+  var user User
+  getUserSQL := `SELECT * FROM users WHERE com_name=$1`
+  err := db.Pool.Get(&user, getUserSQL, comName)
+  return user, err
 }
 
 // GetUsers return companybasic info list
 func GetUsers() ([]CompanyBasic, error) {
-  // TODO
+  companyBasicList := []CompanyBasic{}
+  getCompanyBasicSQL := `SELECT id, com_name, com_field, com_man, com_phone, com_regnum, com_regcap, com_capreport, com_batch, com_license FROM users`
+  err := db.Pool.Select(&companyBasicList, getCompanyBasicSQL)
+  return companyBasicList, err
 }
 
 // UpdateUser update user with whole user entity
 func UpdateUser(user User) (error) {
-  // TODO
+  updateUserSQL := `UPDATE users SET
+    is_admin=$1,
+    phone=$2,
+    email=$3,
+    nick_name=$4,
+    avator=$5,
+
+    com_name=$6,
+    com_field=$7,
+    com_man=$8,
+    com_phone=$9,
+    com_regnum=$10,
+    com_regcap=$11,
+    com_capreport=$12,
+    com_batch=$13,
+    com_license=$14,
+
+    com_level=$15,
+    appli_date=$16,
+    appli_level=$17,
+    appli_result=$18,
+    certf_date=$19,
+    certf_num=$20,
+    verif_date=$21,
+    verif_result=$22,
+    com_turnover=$23,
+    com_area=$24,
+    police_num=$25,
+    police_duty=$26,
+    police_cancel=$27,
+    police_dutycancel=$28,
+    list_duty=$29,
+    list_dutycancel=$30,
+    emp_num=$31,
+    emp_contract=$32,
+    emp_lccr=$33,
+    cont_num=$34,
+    cont_vac=$35,
+    cont_samptnum=$36,
+    cont_sampfnum=$37,
+    cont_sampvac=$38,
+    emp_sep=$39,
+    emp_seprate=$40,
+    list_certrate=$41,
+    list_sampcertrate=$42,
+    emp_ssemanum=$43,
+    emp_ssemarate=$44,
+    emp_semanum=$45,
+    emp_semarate=$46,
+    emp_jsenum=$47,
+    emp_jserate=$48,
+    train_period=$49,
+    com_salary=$50,
+    train_funds=$51,
+    train_fundsrate=$52,
+    com_comins=$53,
+    com_sosec=$54,
+    com_sosecrate=$55,
+    com_party=$56,
+    com_youth=$57,
+    com_union=$58,
+    com_crime=$59,
+    com_acc=$60,
+    com_mwgs=$61
+  WHERE id=$62`
+  _, err := db.Pool.Exec(updateUserSQL,
+    user.IsAdmin,
+    user.Phone,
+    user.Email,
+    user.NickName,
+    user.Avator,
+    user.CompanyBasic.ComName,
+    user.CompanyBasic.ComField,
+    user.CompanyBasic.ComMan,
+    user.CompanyBasic.ComPhone,
+    user.CompanyBasic.ComRegnum,
+    user.CompanyBasic.ComRegcap,
+    user.CompanyBasic.ComCapreport,
+    user.CompanyBasic.ComBatch,
+    user.CompanyBasic.ComLicense,
+    user.ComLevel,
+    user.AppliDate,
+    user.AppliLevel,
+    user.AppliResult,
+    user.CertfDate,
+    user.CertfNum,
+    user.VerifDate,
+    user.VerifResult,
+    user.ComTurnover,
+    user.ComArea,
+    user.PoliceNum,
+    user.PoliceDuty,
+    user.PoliceCancel,
+    user.PoliceDutycancel,
+    user.ListDuty,
+    user.ListDutycancel,
+    user.EmpNum,
+    user.EmpContract,
+    user.EmpLccr,
+    user.ContNum,
+    user.ContVac,
+    user.ContSamptnum,
+    user.ContSampfnum,
+    user.ContSampvac,
+    user.EmpSep,
+    user.EmpSeprate,
+    user.ListCertrate,
+    user.ListSampcertrate,
+    user.EmpSsemanum,
+    user.EmpSsemarate,
+    user.EmpSemanum,
+    user.EmpSemarate,
+    user.EmpJsenum,
+    user.EmpJserate,
+    user.TrainPeriod,
+    user.ComSalary,
+    user.TrainFunds,
+    user.TrainFundsrate,
+    user.ComComins,
+    user.ComSosec,
+    user.ComSosecrate,
+    user.ComParty,
+    user.ComYouth,
+    user.ComUnion,
+    user.ComCrime,
+    user.ComAcc,
+    user.ComMwgs,
+    user.CompanyBasic.ID)
+  return err
 }
 
 // DeleteUserByID delete user by id
 func DeleteUserByID(userID string) (error) {
-  // TODO
+  deleteUserSQL := `DELETE FROM users WHERE id=$1`
+  _, err := db.Pool.Exec(deleteUserSQL, userID)
+  return err
 }
 
 // GetUserContracts return Contract list of specific user
 func GetUserContracts(userID string) ([]Contract, error) {
-  // TODO
+  contracts := []Contract{}
+  getContractsSQL := `SELECT * FROM contracts WHERE user_id=$1`
+  err := db.Pool.Select(&contracts, getContractsSQL, userID)
+  return contracts, err
 }
 
 // GetUserScores return Score list of specific user
 func GetUserScores(userID string) ([]Score, error) {
-  // TODO
+  scores := []Score{}
+  getScoresSQL := `SELECT * FROM scores WHERE user_id=$1`
+  err := db.Pool.Select(&scores, getScoresSQL, userID)
+  return scores, err
 }
-

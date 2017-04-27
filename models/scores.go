@@ -68,14 +68,14 @@ func GetScores() ([]Score, error) {
 // UpdateScore update score with whole score entity
 func UpdateScore(score Score) (error) {
   updateScoreSQL := `UPDATE scores SET
-    user_id=$1
-    com_name=$2
-    year=$3
-    standard=$4
-    score_no=$5
-    score_type=$6
-    satisfied=$7
-    score=$8
+    user_id=$1,
+    com_name=$2,
+    year=$3,
+    standard=$4,
+    score_no=$5,
+    score_type=$6,
+    satisfied=$7,
+    score=$8,
     reason=$9
   WHERE id=$10`
   _, err := db.Pool.Exec(updateScoreSQL,
