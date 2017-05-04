@@ -22,7 +22,7 @@
 Init database.
 
 ```sh
-psql postgres://bzjgtwxllnppiq:31a68d8748d99ded0a1d42f95a6c28eef56f0cf5fd892250f1905f99bde7ce95@ec2-54-235-90-107.compute-1.amazonaws.com:5432/d5imq2f3o1cs7a -f ./scripts/initdb.sql
+psql postgres://zsgogdpabujfvb:b8ff515b7eb9becefb8455d1f6c890e0cc66246487f1b2ae35535fb4f96f27d2@ec2-54-235-119-27.compute-1.amazonaws.com:5432/d9ijitr6tas3b -f ./scripts/initdb.sql
 ```
 
 Start server for test.
