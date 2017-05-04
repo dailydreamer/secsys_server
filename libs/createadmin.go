@@ -15,7 +15,7 @@ func CreateAdmin() {
 		log.Println("Error on encrypt password: " + err.Error())
 		return
 	}
-	user.ID, err = models.CreateUser(user.Phone, string(hashedPassword), true)
+	user.ID, err = models.CreateUser(user, string(hashedPassword), true)
 	if err != nil {
 		log.Println("Error on create user: " + err.Error())
 		return

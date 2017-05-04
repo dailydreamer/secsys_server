@@ -10,7 +10,8 @@
 - [x] complete api design
 - [x] golang json null omitempty survey
 - [x] implement middleware
-- [ ] implement controllers
+- [x] implement controllers
+- [ ] insert log and message auto creating into controllers
 - [ ] verification
 - [ ] file upload
 

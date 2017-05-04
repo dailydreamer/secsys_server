@@ -1,10 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
   "net/http"
+	"golang.org/x/crypto/bcrypt"
 
   "secsys/libs"
-	"log"
   "secsys/models"
 	"github.com/pressly/chi"
 )
@@ -64,7 +65,11 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		libs.ResponseError(w, r, "Error on parse json: " + err.Error(), http.StatusBadRequest)
 		return
 	}
-  err := models.UpdateUser(user)
+  if userID != user.ID {
+    libs.ResponseError(w, r, "userID not match", http.StatusUnauthorized)
+		return
+  }
+  err = models.UpdateUser(user)
   if err != nil {
 		libs.ResponseError(w, r, "Error on update user: " + err.Error(), http.StatusInternalServerError)
 		return  
@@ -75,7 +80,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 // DeleteUser DELETE /users/:userID
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
   userID := chi.URLParam(r, "userID")
-  err := models.DeleteUser(userID)
+  err := models.DeleteUserByID(userID)
   if err != nil {
 		libs.ResponseError(w, r, "Error on delete user: " + err.Error(), http.StatusInternalServerError)
 		return  
@@ -113,7 +118,7 @@ func CreateUserContract(w http.ResponseWriter, r *http.Request) {
 		return    
   }
   contract.UserID = dbUser.ID
-  contract.ID, err := models.CreateContract(contract)
+  contract.ID, err = models.CreateContract(contract)
   if err != nil {
 		libs.ResponseError(w, r, "Error on create contract: " + err.Error(), http.StatusInternalServerError)
 		return
@@ -152,12 +157,12 @@ func UpdateUserContract(w http.ResponseWriter, r *http.Request) {
 		return
   }
 	var contract models.Contract
-	err := json.NewDecoder(r.Body).Decode(&contract)
+	err = json.NewDecoder(r.Body).Decode(&contract)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on parse json: " + err.Error(), http.StatusBadRequest)
 		return
 	}
-  err := models.UpdateContract(contract)
+  err = models.UpdateContract(contract)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on update contract: " + err.Error(), http.StatusInternalServerError)
 		return
@@ -178,7 +183,7 @@ func DeleteUserContract(w http.ResponseWriter, r *http.Request) {
     libs.ResponseError(w, r, "Contract not belong to the company: " + err.Error(), http.StatusUnauthorized)
 		return
   }
-  err := models.DeleteContractByID(contractID)
+  err = models.DeleteContractByID(contractID)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on delete contract: " + err.Error(), http.StatusInternalServerError)
 		return
