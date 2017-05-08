@@ -28,8 +28,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// check required field
-	if user.Phone == "" {
-		libs.ResponseError(w, r, "Field phone required", http.StatusUnprocessableEntity)
+	if user.Phone == "" || user.Password == "" || user.ComName == "" {
+		libs.ResponseError(w, r, "Field phone, password, comName required", http.StatusUnprocessableEntity)
 		return
 	}
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
@@ -106,6 +106,11 @@ func CreateUserContract(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&contract)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on parse json: " + err.Error(), http.StatusBadRequest)
+		return
+	}
+	// check required field
+	if contract.ComName == "" || contract.StartTime.IsZero() || contract.EndTime.IsZero() {
+		libs.ResponseError(w, r, "Field startTime, endTime, comName required", http.StatusUnprocessableEntity)
 		return
 	}
   dbUser, err := models.GetUserByComName(contract.ComName)

@@ -365,9 +365,33 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
 ## `POST`类型API
 
 用来**新增**数据，参数与对应的`GET`类型API相同。这里只列出URL列表和其中一个例子：
+
 - `POST /users`
+
+| **Name** | **Type** |
+|---|---|
+| id | AutoGenerate |
+| phone | Required |
+| password | Required |
+| comName | Required |
+
 - `POST /contracts` or `POST /users/{userID}/contracts`
+
+| **Name** | **Type** |
+|---|---|
+| id | AutoGenerate |
+| userID | AutoGenerate |
+| comName | Required |
+| startTime | Required |
+| endTime | Required |
+
 - `POST /scores`
+
+| **Name** | **Type** |
+|---|---|
+| id | AutoGenerate |
+| userID | AutoGenerate |
+| comName | Required |
 
 ### 例：新增企业信息（8新增企业信息.png）
 
@@ -385,7 +409,7 @@ curl 'https://fakeurl/v1/companies?sortby=com_name&order=asc'
     comName: String,         // 企业名称
     comField: String,        // 企业所在领域
     comMan: String,          // 法人/总经理
-    comPhone: String,        // 联系电话
+    comPhone: String,        // 联系电话ID
     comRegnum: String,       // 企业注册号
     comRegcap: String,       // 工商注册资本金
     comCapreport: String,    // 验资报告资本金

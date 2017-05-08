@@ -26,8 +26,8 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// check required field
-	if user.Phone == "" {
-		libs.ResponseError(w, r, "Field phone required", http.StatusUnprocessableEntity)
+	if user.Phone == "" || user.Password == "" || user.ComName == "" {
+		libs.ResponseError(w, r, "Field phone, password, comName required", http.StatusUnprocessableEntity)
 		return
 	}
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)

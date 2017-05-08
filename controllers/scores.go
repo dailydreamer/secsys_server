@@ -25,6 +25,11 @@ func CreateScore(w http.ResponseWriter, r *http.Request) {
 		libs.ResponseError(w, r, "Error on parse json: " + err.Error(), http.StatusBadRequest)
 		return
 	}
+	// check required field
+	if score.ComName == "" {
+		libs.ResponseError(w, r, "Field comName required", http.StatusUnprocessableEntity)
+		return
+	}
   dbUser, err := models.GetUserByComName(score.ComName)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on get user by comName: " + err.Error(), http.StatusInternalServerError)

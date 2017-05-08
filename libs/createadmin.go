@@ -8,7 +8,13 @@ import (
 
 // CreateAdmin create admin user
 func CreateAdmin() {
-	user := models.User{Phone:"1",Password:"1"}
+	user := models.User{
+		Phone:"admin",
+		Password:"admin",
+		CompanyBasic: models.CompanyBasic{
+			ComName:"北京保安协会评定办",
+		},
+	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {

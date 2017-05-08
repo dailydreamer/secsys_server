@@ -25,6 +25,11 @@ func CreateContract(w http.ResponseWriter, r *http.Request) {
 		libs.ResponseError(w, r, "Error on parse json: " + err.Error(), http.StatusBadRequest)
 		return
 	}
+	// check required field
+	if contract.ComName == "" || contract.StartTime.IsZero() || contract.EndTime.IsZero() {
+		libs.ResponseError(w, r, "Field startTime, endTime, comName required", http.StatusUnprocessableEntity)
+		return
+	}
   dbUser, err := models.GetUserByComName(contract.ComName)
 	if err != nil {
 		libs.ResponseError(w, r, "Error on get user by comName: " + err.Error(), http.StatusInternalServerError)
